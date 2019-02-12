@@ -2,8 +2,6 @@
 const mainDiv = document.querySelector("div.page");
 const mainUl = mainDiv.querySelector("ul.student-list")
 const students = mainUl.children;
-let paging;
-
 
 const showPageTen = (list, page) => {
 
