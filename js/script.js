@@ -58,6 +58,8 @@ appendPageLinks = list => {
       a.addEventListener("click", (event) => {
          if (event.target.tagName == "A") {
             showPageTen(list, a.textContent);
+
+            // Adds active class to clicked pagination and removes class from other links.
             for (i = 0; i < pages; i++) {
                let links = document.querySelectorAll("a");
                links[i].className = "";
@@ -75,43 +77,44 @@ searchStudents = list => {
    // Assigns header div tagt to variable 
    const pageHeader = document.getElementsByClassName("page-header cf")[0];
 
-   // Creates and appends div that will hold search elements
-   const searchDiv = createElem("div");
-   searchDiv.className = "student-search"
-   pageHeader.appendChild(searchDiv);
+   // Creates and appends a form that will hold search elements
+   const searchForm = createElem("form");
+   searchForm.className = "student-search"
+   pageHeader.appendChild(searchForm);
 
    // Creates and appends student search input field
    const createInput = createElem("input");
    createInput.id = "search";
    createInput.placeholder = "Search All Students";
-   searchDiv.appendChild(createInput)
+   searchForm.appendChild(createInput)
 
    // Creates and appends search button for input field
    const createButton = createElem("button");
    createButton.id = "button";
    createButton.textContent = "Search";
-   searchDiv.appendChild(createButton);
+   searchForm.appendChild(createButton);
 
    // Creates and appends a Home button.
    const createReset = createElem("button");
    createReset.id = "reset";
    createReset.textContent = "Home";
-   searchDiv.appendChild(createReset);
+   searchForm.appendChild(createReset);
 
-   // When the user clicks the Home button, the showPageTen  and appendPageLinks functions run with their default arguments attached.
+   // When the user clicks the Home button, the showPageTen and appendPageLinks functions run with their default arguments attached.
    const reset = document.getElementById("reset");
    reset.addEventListener("click", (event) => {
       if (event.target.tagName = "BUTTON") {
+         event.preventDefault();
          appendPageLinks(students);
          showPageTen(students, 1);
       }
    })
 
-   // When the user clicks the Search button, the value of the search input filters the total student records and displays results and updated pagination links based on the filtered value.
+   // When the user clicks the Search button or hits Enter, the value of the search input filters the total student records and displays results and updated pagination links based on the filtered value.
    const button = document.getElementById("button");
    button.addEventListener("click", (event) => {
-      if (event.target.tagName == "BUTTON") {
-
+     if (event.target.tagName == "BUTTON") {
+        event.preventDefault();
          // If the no-results heading exists, remove it. This prevents the "no search results" heading from displaying whenever the user decides to input another search query after finding no search results prior.
          if (document.getElementById("no-results")) {
             let removeId = document.getElementById("no-results");
